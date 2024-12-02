@@ -1,0 +1,2 @@
+# linebotest
+npm init ができた
