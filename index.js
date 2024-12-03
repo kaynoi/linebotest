@@ -1,24 +1,24 @@
-const https = require("https");
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 3000;
-const TOKEN = process.env.LINE_ACCESS_TOKEN;
+// -----------------------------------------------------------------------------
+// モジュールのインポート
+const server = require("express")();
+const line = require("@line/bot-sdk"); // Messaging APIのSDKをインポート
 
-app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+// -----------------------------------------------------------------------------
+// パラメータ設定
+const line_config = {
+    channelAccessToken: process.env.LINE_ACCESS_TOKEN, // 環境変数からアクセストークンをセットしています
+    channelSecret: process.env.LINE_CHANNEL_SECRET // 環境変数からChannel Secretをセットしています
+};
 
-app.get("/", (req, res) => {
-  res.sendStatus(200);
+// -----------------------------------------------------------------------------
+// Webサーバー設定
+server.listen(process.env.PORT || 3000);
+
+
+// -----------------------------------------------------------------------------
+// ルーター設定
+server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
+    res.sendStatus(200);
+    console.log(req.body);
 });
 
-app.post("/webhook", function (req, res) {
-  res.send("HTTP POST request sent to the webhook URL!");
-});
-
-app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`);
-});
