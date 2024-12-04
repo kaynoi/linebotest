@@ -6,6 +6,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
+  "repository": {
+    "type": "git",
+     "url": "git+ssh://git@github.com/kaynoi/linebotest.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
